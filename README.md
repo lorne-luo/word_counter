@@ -1,4 +1,4 @@
-# Tennis Calculator
+# Word Counter
 
 This project could report word frequencies of given file. 
 
@@ -9,20 +9,22 @@ This project require Python version 3.6 or above due to used [f-string formattin
 - Git
 
 ## Installation
-Simply git clone this repo and run `main.py`
+Git clone this repo, create virtualenv and run pip install
 ```
 git clone https://github.com/lorne-luo/word_counter.git
 cd word_counter
-virtualenv venv
+python3 -m venv venv
 source ./venv/bin/activate
-pip install -r requirements.txt
-python -m spacy download en_core_web_sm  # this step is important to download segment model
+pip3 install -r requirements.txt
+# below step is mandatory to download Spacy segment model
+python -m spacy download en_core_web_sm  
 ```
 
 ## How to run
 Check options
 ```
->>> python main.py  --help
+>>> python main.py --help
+
 Usage: main.py [OPTIONS] FILENAME
 
 Options:
