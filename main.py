@@ -33,7 +33,7 @@ def main(filename, minimum, stop_words):
     # verify input filename
     file_path = validate_file(filename)
     if not file_path:
-        print('Please input a valid relative filename or absolute path.')
+        print(f'Can\'t find {filename}, please input a valid relative filename or absolute path.')
         return
 
     # clean up stop words
@@ -63,7 +63,7 @@ def main(filename, minimum, stop_words):
 
     # sort by count
     sorted_x = sorted(result.items(), key=operator.itemgetter(1), reverse=True)
-    
+
     for word, count in sorted_x:
         if count > minimum:
             print(word, count)
