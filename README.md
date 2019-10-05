@@ -21,9 +21,9 @@ python -m spacy download en_core_web_sm
 ```
 
 ## How to run
-Check options
+Check command options
 ```
->>> python main.py --help
+>>> python3 main.py --help
 
 Usage: main.py [OPTIONS] FILENAME
 
@@ -33,9 +33,9 @@ Options:
   --help             Show this message and exit.
 ```
 
-Example:
+Run with example:
 ```
-python main.py demo.txt --minimum 10 --stop_words  and,it
+python3 main.py demo.txt --minimum 10 --stop_words  and,it
 ```
  
 ## How to test
