@@ -25,6 +25,34 @@ def read_line(file):
         yield line
 
 
+def word_count(filename, stop_words):
+    result = defaultdict(int)
+
+    # read file
+    with open(filename) as file_handler:
+        for line in read_line(file_handler):
+            # skip blank line
+            if not line:
+                continue
+
+            doc = nlp(line)
+            for token in doc:
+                # punctutation, space, line-change will be ignored
+                if token.is_punct or token.is_space:
+                    continue
+
+                word = token.text.lower()
+                # skip stop words
+                if word in stop_words:
+                    continue
+                result[word] += 1
+
+    # sort by count descending
+    sorted_x = sorted(result.items(), key=operator.itemgetter(1), reverse=True)
+
+    return sorted_x
+
+
 @click.command()
 @click.argument('filename', nargs=1)
 @click.option('--minimum', default=0, help='minimum count of words')
@@ -40,31 +68,11 @@ def main(filename, minimum, stop_words):
     stop_words = stop_words.split(',')
     stop_words = [x.strip() for x in stop_words]
 
-    result = defaultdict(int)
+    # do word counting
+    result = word_count(filename, stop_words)
 
-    # read file
-    with open(filename) as file_handler:
-        for line in read_line(file_handler):
-            # skip blank line
-            if not line:
-                continue
-
-            doc = nlp(line)
-            for token in doc:
-                # punctutation, space, line change will be ignore
-                if token.is_punct or token.is_space:
-                    continue
-
-                word = token.text.lower()
-                # skip stop words
-                if word in stop_words:
-                    continue
-                result[word] += 1
-
-    # sort by count
-    sorted_x = sorted(result.items(), key=operator.itemgetter(1), reverse=True)
-
-    for word, count in sorted_x:
+    # print according to minimum limit
+    for word, count in result:
         if count > minimum:
             print(word, count)
 
